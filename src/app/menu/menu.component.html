@@ -1,0 +1,52 @@
+<!-- Menu Desktop -->
+<ul class="nav nav-pills nav-fill d-none d-md-flex menu-desktop">
+    <li class="logo"><span>Calculo II</span></li>
+    <li class="nav-item">
+      <a class="link-menu" [routerLink]="['derivadas']" routerLinkActive="butonActive">Derivadas</a>
+    </li>
+    <li class="nav-item enlace-link">
+      <a class="" href="#" [routerLink]="['integrales']" routerLinkActive="butonActive">Integrales</a>
+    </li>
+    <li class="nav-item enlace-link">
+      <a class="" href="#" [routerLink]="['areaBajoCurva']" routerLinkActive="butonActive">Area bajo la curva</a>
+    </li>
+    <li class="nav-item enlace-link">
+      <a class="" href="#" [routerLink]="['trigonometrica']" routerLinkActive="butonActive">Trigonométrica</a>
+    </li>
+  </ul>
+  
+  <!-- Menu Movil -->
+  <nav class="navbar bg-light fixed-top d-block d-md-none position-relative">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Calculo II</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Calculo II</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" [routerLink]="['derivadas']" routerLinkActive="active">Derivadas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['integrales']" routerLinkActive="active">Integrales</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['areaBajoCurva']" routerLinkActive="active">
+                Area bajo la curva
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['trigonometrica']" routerLinkActive="active">
+                Trigonométrica
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>

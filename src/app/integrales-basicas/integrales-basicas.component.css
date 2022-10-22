@@ -1,0 +1,152 @@
+* {
+    font-family: monospace;
+}
+
+.contenedor {
+    position: relative;
+}
+
+.numero {
+    width: 90px;
+    font-size: 30px;
+}
+
+.numero2 {
+    width: 90px;
+    font-size: 30px;
+    margin-left: 30px;
+}
+
+.tamanoLetra {
+    font-size: 30px;
+}
+
+
+.tamanoLetradiv2 {
+   
+    position: relative;
+    margin-top: 20px;
+}
+
+.divisor {
+    font-size: 30px;
+    text-align: center;
+}
+
+.constante {
+    font-size: 30px;
+    position: absolute;
+    top: -2px;
+    right: -60px;
+    text-align: center;
+}
+
+.constante2 {
+    font-size: 30px;
+    position: absolute;
+    top: 15px;
+    right: -60px;
+    text-align: center;
+}
+
+.constanteSUMA {
+    font-size: 30px;
+    position: absolute;
+    right: -60px;
+   
+ }
+
+
+
+.tamanoLetra2 {
+    position: relative;
+    bottom: -25px;
+    font-size: 30px;
+}
+
+.tamanoLetra3 {
+    font-size: 30px;
+    margin-left: 15px;
+}
+
+.tamanoLetra4 {
+    position: relative;
+    font-size: 28px;
+    bottom: -25px;
+}
+
+
+.tamanosimbolo {
+    font-size: 50px;
+    position:relative;
+}
+
+.tamanosimbolo2 {
+    font-size: 35px;
+    margin-top: -5px;
+    position:relative;
+}
+
+.tamanosimbolo3 {
+    font-size: 50px;
+    margin-top: -5px;
+    position:relative;
+}
+
+.tamanosimbolo4 {
+    font-size: 85px;
+    font-weight: 100;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: -30px;
+    position:relative;
+}
+
+
+
+.exponente {
+    position: relative;
+    width: 60px;
+    top: -16px;
+    font-size: 22px;
+}
+.exponenteF {
+    
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+.exponente3 {
+    position: relative;
+    margin-top: 25px;
+    font-size: 20px;
+}
+
+.subtitulo {
+    color: #1620af;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Regla de la cadena*/
+
+.parentesis {
+    font-size: 60px;
+}
+
+.exponente2 {
+    position: relative;
+    top: -10px;
+    font-size: 22px;
+}
+
+.operador {
+    position: relative;
+    width: 50px;
+    left: 20px;
+    font-size: 28px;
+    
+}
+
+.div1 {
+    width: 100%;
+    align-items: center;
+}

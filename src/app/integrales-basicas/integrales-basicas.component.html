@@ -1,0 +1,852 @@
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex justify-content-center">
+      <div class="col-lg-5">
+        <select (change)="reset()" class="col-4" #tipointegral="ngModel" [(ngModel)]="tipo" class="form-select"
+          aria-label="Default select example">
+          <option value="1">Integrales Simples</option>
+          <option value="2">Teoremas Básicos</option>
+          <option value="3">Integrales 3</option>
+        </select>
+      </div>
+    </div>
+    <br />
+    <br />
+    <!-- Integral simple -->
+    <div *ngIf="tipo == 1" class="contenedor">
+      <div class="row">
+        <div class="col-lg-6 d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100)">
+          <div class="">
+            <h2 class="subtitulo">Ingrese operacion</h2>
+            <br />
+            <span class="tamanosimbolo">∫ </span>
+            <input type="number" class="numero" (input)="reset()" [(ngModel)]="intsimple.num1" />
+            <span class="tamanoLetra">x</span>
+            <input type="number" class="exponente" (input)="reset()" [(ngModel)]="intsimple.expo1" />
+            <span class="tamanoLetra"> dx</span>
+            <br /><br />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex flex-wrap justify-content-center contenedor">
+            <h2 class="col-12 subtitulo" style="text-align: center">
+              Verifique su expresión
+            </h2>
+            <span class="tamanosimbolo">∫ </span>
+            <span class="tamanoLetra2" *ngIf="
+                intsimple.num1 != 1 ||
+                (intsimple.num1 == 1 && intsimple.expo1 == 0)
+              ">
+              {{ intsimple.num1.toString().trim() }}
+            </span>
+            <span class="tamanoLetra2" *ngIf="intsimple.expo1 != 0 && intsimple.num1 != 0">x</span>
+            <span *ngIf="
+                intsimple.expo1 != 1 &&
+                intsimple.expo1 != 0 &&
+                intsimple.num1 != 0
+              " class="exponenteF">
+              {{ intsimple.expo1.toString().trim() }}
+            </span>
+            <span class="tamanoLetra2"> dx</span>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-5" style="width: 100%">
+        <button class="btn btn-outline-success" (click)="calcularint1()">
+          Calcular
+        </button>
+      </div>
+      <br />
+      <br />
+      <div *ngIf="estadoRes">
+        <div *ngIf="intsimple.expo1 != -1" style="position: relative" class="d-flex justify-content-center">
+          <span class="tamanoLetra">
+            ({{ intsimple.num1.toString().trim() }} /
+            {{ simpleintegral.integralsimple.respexpo1.toString().trim() }})</span>
+          <span class="tamanoLetra">x</span>
+          <span class="exponente2">({{ intsimple.expo1.toString().trim() }}+1)</span>
+        </div>
+        <br />
+        <div *ngIf="estadoRes" class="d-flex justify-content-center" style="font-weight: bold">
+          <i class="tamanoLetra" style="margin-right: 15px">Resultado:</i>
+          <div *ngIf="intsimple.expo1 != -1; else lognatural" style="position: relative">
+            <div *ngIf="simpleintegral.integralsimple.respnum1 != 0; else cero" style="position: relative">
+              <span *ngIf="simpleintegral.integralsimple.respnum1 != 1" class="tamanoLetra">{{
+                simpleintegral.integralsimple.respnum1.toString().trim() }}</span>
+              <span *ngIf="simpleintegral.integralsimple.respexpo1 != 0" class="tamanoLetra">x</span>
+              <span *ngIf="
+                  simpleintegral.integralsimple.respexpo1 != 1 &&
+                  simpleintegral.integralsimple.respexpo1 != 0
+                " class="exponente2">{{ simpleintegral.integralsimple.respexpo1.toString().trim() }}</span>
+              <p [ngClass]="
+                  simpleintegral.integralsimple.respdivisor1 != 1 &&
+                  simpleintegral.integralsimple.respdivisor1 != 0
+                    ? 'constante2'
+                    : 'constante'
+                ">
+                + C
+              </p>
+              <br />
+              <div class="divisor" *ngIf="
+                  simpleintegral.integralsimple.respdivisor1 != 0 &&
+                  simpleintegral.integralsimple.respdivisor1 != 1
+                " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                <span class="divisor">
+                  {{ simpleintegral.integralsimple.respdivisor1.toString().trim() }}
+                </span>
+              </div>
+            </div>
+            <ng-template #cero>
+              <span *ngIf="intsimple.expo1 != -1" class="tamanoLetra">0</span>
+            </ng-template>
+          </div>
+          <ng-template #lognatural>
+            <span class="tamanoLetra">{{ intsimple.num1 }} ln(|x|) + C</span>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!--*Integral por Teoremas Basicos-->
+
+    <div *ngIf="tipo == 2" class="contenedor">
+      <div class="row">
+        <div class="col-lg-6 d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100)">
+          <div class="d-flex justify-content-center">
+            <div class="align-items-center">
+              <h2 class="subtitulo" style="text-align: center">
+                Ingrese operacion
+              </h2>
+              <span class="tamanosimbolo">∫ </span>
+              <input type="number" class="numero" (input)="reset()" [(ngModel)]="intoperacion.num1" />
+              <span class="tamanoLetra">x</span>
+              <input type="number" class="exponente" (input)="reset()" [(ngModel)]="intoperacion.expo1" />
+              <select name="" id="" class="operador" [(ngModel)]="intoperacion.operador" (change)="reset()">
+                <option value="1">+</option>
+                <option value="2">-</option>
+                <option value="3">*</option>
+                .
+                <option value="4">/</option>
+              </select>
+              <input type="number" class="numero2" (input)="reset()" [(ngModel)]="intoperacion.num2" />
+              <span class="tamanoLetra">x</span>
+              <input type="number" class="exponente" (input)="reset()" [(ngModel)]="intoperacion.expo2" />
+              <span class="tamanoLetra3"> dx</span>
+              <br /><br />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex flex-wrap justify-content-center contenedor">
+            <h2 class="col-12 subtitulo" style="text-align: center">
+              Verifique su expresión
+            </h2>
+            <span class="tamanosimbolo">∫ </span>
+            <span class="tamanoLetra4" *ngIf="
+                intoperacion.num1 != 1 ||
+                (intoperacion.num1 == 1 && intoperacion.expo1 == 0)
+              ">
+              {{ intoperacion.num1.toString().trim() }}
+            </span>
+            <span class="tamanoLetra4" *ngIf="intoperacion.expo1 != 0 && intoperacion.num1 != 0">x</span>
+            <span *ngIf="
+                intoperacion.expo1 != 1 &&
+                intoperacion.expo1 != 0 &&
+                intoperacion.num1 != 0
+              " class="exponente3">
+              {{ intoperacion.expo1.toString().trim() }}
+            </span>
+            <span class="tamanoLetra4" style="margin-left: 10px"
+              *ngIf="intoperacion.operador == 1 || intoperacion.operador == 2">
+              dx
+            </span>
+            <span class="tamanoLetra4" *ngIf="intoperacion.operador == 1">
+              +
+            </span>
+            <span class="tamanoLetra4" *ngIf="intoperacion.operador == 2">
+              -
+            </span>
+            <span class="tamanoLetra4" *ngIf="intoperacion.operador == 3">
+              *
+            </span>
+            <span class="tamanoLetra4" *ngIf="intoperacion.operador == 4">
+              /
+            </span>
+            <span class="tamanosimbolo" *ngIf="intoperacion.operador == 1 || intoperacion.operador == 2">∫
+            </span>
+            <span class="tamanoLetra4" *ngIf="
+                intoperacion.num2 != 1 ||
+                (intoperacion.num2 == 1 && intoperacion.expo1 == 0)
+              ">
+              {{ intoperacion.num2.toString().trim() }}
+            </span>
+            <span class="tamanoLetra4" *ngIf="intoperacion.expo2 != 0 && intoperacion.num2 != 0">x</span>
+            <span *ngIf="
+                intoperacion.expo2 != 1 &&
+                intoperacion.expo2 != 0 &&
+                intoperacion.num2 != 0
+              " class="exponente3">
+              {{ intoperacion.expo2.toString().trim() }}
+            </span>
+            <span class="tamanoLetra4" style="margin-left: 10px"> dx </span>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-5" style="width: 100%">
+        <button class="btn btn-outline-success" (click)="calcularint2()">
+          Calcular
+        </button>
+      </div>
+      <br />
+      <br />
+
+      <!--RESPUESTA-->
+      <div *ngIf="estadoRes">
+        <!--*SUMA-->
+        <!--*SUMA CON EXPONENTES IGUALES-->
+
+        <div *ngIf="intoperacion.operador == 1">
+          <div *ngIf="intoperacion.expo1 == intoperacion.expo2">
+            <div class="d-flex justify-content-center">
+              <!--Simplificación Integral-->
+              <span class="tamanosimbolo2">∫ </span>
+              <div>
+                <span class="tamanoLetra">
+                  {{ simpleintegral.integraloperacion.resnum3.toString().trim() }}
+                </span>
+                <span class="tamanoLetra">x</span>
+                <span class="exponente2">{{ intoperacion.expo1.toString().trim() }}</span>
+                <br />
+                <div class="divisor" *ngIf="
+                    simpleintegral.integraloperacion.resdivisor3 != 0 &&
+                    simpleintegral.integraloperacion.resdivisor3 != 1
+                  " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                  <span class="divisor">
+                    {{ simpleintegral.integraloperacion.resdivisor3.toString().trim() }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!--PROCEDIMIENTO-->
+            <div *ngIf="intoperacion.expo1 != -1" style="position: relative" class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <div>
+                  <span class="tamanoLetra">({{ simpleintegral.integraloperacion.resnum1.toString().trim() }} /({{
+                    intoperacion.expo1
+                    }}+ 1))</span>
+                  <span class="tamanoLetra">x</span>
+                  <span class="exponente2">({{ intoperacion.expo1.toString().trim() }}+1)</span>
+                </div>
+              </div>
+            </div>
+            <!--RESULTADO SUMA-->
+            <div *ngIf="estadoRes" class="d-flex justify-content-center" style="font-weight: bold">
+              <i class="tamanoLetra" style="margin-right: 15px">Resultado:</i>
+              <div *ngIf="simpleintegral.integraloperacion.resexpo1 != -1" style="position: relative">
+                <div *ngIf="
+                    simpleintegral.integraloperacion.resnum2 != 0;
+                    else cero
+                  " style="position: relative">
+                  <span *ngIf="simpleintegral.integraloperacion.resnum2 != 1" class="tamanoLetra">{{
+                    simpleintegral.integraloperacion.resnum2.toString().trim() }}</span>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != 0" class="tamanoLetra">x</span>
+                  <span *ngIf="
+                      simpleintegral.integraloperacion.resexpo1 != 1 &&
+                      simpleintegral.integraloperacion.resexpo1 != 0
+                    " class="exponente2">{{ simpleintegral.integraloperacion.resexpo1.toString().trim() }}</span>
+                  <p [ngClass]="
+                      simpleintegral.integraloperacion.resdivisor1 != 1 &&
+                      simpleintegral.integraloperacion.resdivisor1 != 0
+                        ? 'constante2'
+                        : 'constante'
+                    ">
+                    + C
+                  </p>
+                  <br />
+                  <div class="divisor" *ngIf="
+                      simpleintegral.integraloperacion.resdivisor1 != 0 &&
+                      simpleintegral.integraloperacion.resdivisor1 != 1
+                    " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                    <span class="divisor">
+                      {{ simpleintegral.integraloperacion.resdivisor1.toString().trim() }}
+                    </span>
+                  </div>
+                </div>
+                <ng-template #cero>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != -1" class="tamanoLetra">0</span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <!--?SUMAS CON EXPONENTE DISTINTOS-->
+          <div *ngIf="intoperacion.expo1 != intoperacion.expo2">
+            <div class="d-flex justify-content-center">
+              <!--Simplificación Integral-->
+              <span class="tamanosimbolo">∫ </span>
+              <span class="tamanoLetra4" *ngIf="
+                intoperacion.num1 != 1 ||
+                (intoperacion.num1 == 1 && intoperacion.expo1 == 0)
+              ">
+                {{ intoperacion.num1.toString().trim() }}
+              </span>
+              <span class="tamanoLetra4" *ngIf="intoperacion.expo1 != 0 && intoperacion.num1 != 0">x</span>
+              <span *ngIf="
+                intoperacion.expo1 != 1 &&
+                intoperacion.expo1 != 0 &&
+                intoperacion.num1 != 0
+              " class="exponente3">
+                {{ intoperacion.expo1.toString().trim() }}
+              </span>
+              <span class="tamanoLetra4" style="margin-left: 10px"
+                *ngIf="intoperacion.operador == 1 || intoperacion.operador == 2">
+                dx
+              </span>
+              <span class="tamanoLetra4" *ngIf="intoperacion.operador == 1">
+                +
+              </span>
+              <span class="tamanosimbolo" *ngIf="intoperacion.operador == 1 || intoperacion.operador == 2">∫
+              </span>
+              <span class="tamanoLetra4" *ngIf="
+                intoperacion.num2 != 1 ||
+                (intoperacion.num2 == 1 && intoperacion.expo1 == 0)
+              ">
+                {{ intoperacion.num2.toString().trim() }}
+              </span>
+              <span class="tamanoLetra4" *ngIf="intoperacion.expo2 != 0 && intoperacion.num2 != 0">x</span>
+              <span *ngIf="
+                intoperacion.expo2 != 1 &&
+                intoperacion.expo2 != 0 &&
+                intoperacion.num2 != 0
+              " class="exponente3">
+                {{ intoperacion.expo2.toString().trim() }}
+              </span>
+              <span class="tamanoLetra4" style="margin-left: 10px"> dx</span>
+            </div>
+            <br />
+
+            <!--PROCEDIMIENTO-->
+            <div *ngIf="intoperacion.expo1 != -1" style="position: relative" class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <div>
+                  <span class="tamanosimbolo3">(</span>
+                  <span class="tamanoLetra">({{ intoperacion.num1.toString().trim() }} /({{
+                    intoperacion.expo1.toString().trim()
+                    }}+1))</span>
+                  <span class="tamanoLetra">x</span>
+                  <span class="exponente2">( {{ intoperacion.expo1.toString().trim() }}+1)</span>
+                  <span class="tamanosimbolo3">)</span>
+                  <span class="tamanosimbolo3">+</span>
+                  <span class="tamanosimbolo3">(</span>
+                  <span class="tamanoLetra">({{ intoperacion.num2.toString().trim() }} /({{
+                    intoperacion.expo2.toString().trim()
+                    }}+1))</span>
+                  <span class="tamanoLetra">x</span>
+                  <span class="exponente2">( {{ intoperacion.expo2.toString().trim() }}+1)</span>
+                  <span class="tamanosimbolo3">)</span>
+                </div>
+              </div>
+            </div>
+
+            <!--RESULTADO SUMA-->
+            <div *ngIf="estadoRes" class="d-flex justify-content-center align-items-center" style="font-weight: bold">
+              <i class="tamanoLetra" style="margin-right: 15px">Resultado:</i>
+              <div *ngIf="simpleintegral.integraloperacion.resexpo1 != -1,  else lognatural2"
+                style="position: relative">
+                <div *ngIf="
+                    simpleintegral.integraloperacion.resnum1 != 0;
+                    else cero
+                  " style="position: relative">
+                  <span *ngIf="simpleintegral.integraloperacion.resnum1 != 1" class="tamanoLetra">{{
+                    simpleintegral.integraloperacion.resnum1.toString().trim()}}</span>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != 0" class="tamanoLetra">x</span>
+                  <span *ngIf="
+                      simpleintegral.integraloperacion.resexpo1 != 1 &&
+                      simpleintegral.integraloperacion.resexpo1 != 0
+                    " class="exponente2">{{ simpleintegral.integraloperacion.resexpo1.toString().trim() }}</span>
+
+                  <br />
+                  <div class="divisor" *ngIf="
+                      simpleintegral.integraloperacion.resdivisor1 != 0 &&
+                      simpleintegral.integraloperacion.resdivisor1 != 1
+                    " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                    <span class="divisor">
+                      {{ simpleintegral.integraloperacion.resdivisor1 }}
+                    </span>
+                  </div>
+
+                </div>
+                <ng-template #cero>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != -1" class="tamanoLetra">0</span>
+                </ng-template>
+              </div>
+              <span *ngIf="simpleintegral.integraloperacion.resnum2 < 0" class="tamanoLetra">-</span>
+              <span *ngIf="simpleintegral.integraloperacion.resnum2 >= 0" class="tamanoLetra">+</span>
+              <div *ngIf="simpleintegral.integraloperacion.resexpo2 != -1,  else lognatural3"
+                style="position: relative">
+                <div *ngIf="
+                    simpleintegral.integraloperacion.resnum2 != 0;
+                    else cero2
+                  " style="position: relative" class="d-flex align-items-center">
+                  <div>
+
+                    <span *ngIf="simpleintegral.integraloperacion.resnum2 != 1" class="tamanoLetra">
+                      <span
+                        *ngIf="simpleintegral.integraloperacion.resnum2 >= 0">{{simpleintegral.integraloperacion.resnum2.toString().trim()}}</span>
+                      <span
+                        *ngIf="simpleintegral.integraloperacion.resnum2 < 0">{{(-simpleintegral.integraloperacion.resnum2).toString().trim()}}</span>
+                    </span>
+                    <span *ngIf="simpleintegral.integraloperacion.resexpo2 != 0" class="tamanoLetra">x</span>
+                    <span *ngIf="
+                      simpleintegral.integraloperacion.resexpo2 != 1 &&
+                      simpleintegral.integraloperacion.resexpo2 != 0
+                    " class="exponente2">{{ simpleintegral.integraloperacion.resexpo2.toString().trim() }}</span>
+                    <br />
+                    <div class="divisor" *ngIf="
+                      simpleintegral.integraloperacion.resdivisor2 != 0 &&
+                      simpleintegral.integraloperacion.resdivisor2 != 1
+                    " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                      <span class="divisor">
+                        {{ simpleintegral.integraloperacion.resdivisor2.toString().trim() }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <span class="constanteSUMA">
+                    + C
+                  </span>
+                </div>
+                <ng-template #cero2>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo2 != -1" class="tamanoLetra">0 + C</span>
+                </ng-template>
+              </div>
+              <ng-template #lognatural2>
+                <div *ngIf="intoperacion.operador == 1" class="position-relative">
+                  <span class="tamanoLetra">{{ simpleintegral.integraloperacion.resnum1 }} ln(|x|)
+                  </span>
+                </div>
+              </ng-template>
+              <ng-template #lognatural3>
+                <div *ngIf="intoperacion.operador == 1" class="position-relative">
+                  <span class="tamanoLetra">{{ simpleintegral.integraloperacion.resnum2 }} ln(|x|)
+                  </span>
+
+                  <span class="constante">+ C</span>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!--*RESTA-->
+        <!--*RESTA CON EXPONENTES IGUALES-->
+
+        <div *ngIf="intoperacion.operador == 2">
+          <div *ngIf="intoperacion.expo1 == intoperacion.expo2">
+            <div class="d-flex justify-content-center">
+              <!--Simplificación Integral-->
+              <span class="tamanosimbolo2">∫ </span>
+              <div>
+                <span class="tamanoLetra">
+                  {{ simpleintegral.integraloperacion.resnum3.toString().trim() }}
+                </span>
+                <span class="tamanoLetra">x</span>
+                <span class="exponente2">{{ intoperacion.expo1.toString().trim() }}</span>
+                <br />
+                <div class="divisor" *ngIf="
+                    simpleintegral.integraloperacion.resdivisor3 != 0 &&
+                    simpleintegral.integraloperacion.resdivisor3 != 1
+                  " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                  <span class="divisor">
+                    {{ simpleintegral.integraloperacion.resdivisor3.toString().trim() }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!--PROCEDIMIENTO-->
+            <div *ngIf="intoperacion.expo1 != -1" style="position: relative" class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <div>
+                  <span class="tamanoLetra">({{ simpleintegral.integraloperacion.resnum1.toString().trim() }}/({{
+                    intoperacion.expo1
+                    }}+ 1))</span>
+                  <span class="tamanoLetra">x</span>
+                  <span class="exponente2">({{ intoperacion.expo1.toString().trim() }}+1)</span>
+                </div>
+              </div>
+            </div>
+            <!--RESULTADO RESTA-->
+            <div *ngIf="estadoRes" class="d-flex justify-content-center" style="font-weight: bold">
+              <i class="tamanoLetra" style="margin-right: 15px">Resultado:</i>
+              <div *ngIf="simpleintegral.integraloperacion.resexpo1 != -1" style="position: relative">
+                <div *ngIf="
+                    simpleintegral.integraloperacion.resnum2 != 0;
+                    else cero
+                  " style="position: relative">
+                  <span *ngIf="simpleintegral.integraloperacion.resnum2 != 1" class="tamanoLetra">{{
+                    simpleintegral.integraloperacion.resnum2.toString().trim() }}</span>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != 0" class="tamanoLetra">x</span>
+                  <span *ngIf="
+                      simpleintegral.integraloperacion.resexpo1 != 1 &&
+                      simpleintegral.integraloperacion.resexpo1 != 0
+                    " class="exponente2">{{ simpleintegral.integraloperacion.resexpo1.toString().trim() }}</span>
+                  <p [ngClass]="
+                      simpleintegral.integraloperacion.resdivisor1 != 1 &&
+                      simpleintegral.integraloperacion.resdivisor1 != 0
+                        ? 'constante2'
+                        : 'constante'
+                    ">
+                    + C
+                  </p>
+                  <br />
+                  <div class="divisor" *ngIf="
+                      simpleintegral.integraloperacion.resdivisor1 != 0 &&
+                      simpleintegral.integraloperacion.resdivisor1 != 1
+                    " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                    <span class="divisor">
+                      {{ simpleintegral.integraloperacion.resdivisor1.toString().trim() }}
+                    </span>
+                  </div>
+                </div>
+                <ng-template #cero>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != -1" class="tamanoLetra">0</span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <!--?RESTAS CON EXPONENTE DISTINTOS-->
+          <div *ngIf="intoperacion.expo1 != intoperacion.expo2">
+            <div class="d-flex justify-content-center">
+              <!--Simplificación Integral-->
+              <span class="tamanosimbolo">∫ </span>
+              <span class="tamanoLetra4" *ngIf="
+                intoperacion.num1 != 1 ||
+                (intoperacion.num1 == 1 && intoperacion.expo1 == 0)
+              ">
+                {{ intoperacion.num1.toString().trim() }}
+              </span>
+              <span class="tamanoLetra4" *ngIf="intoperacion.expo1 != 0 && intoperacion.num1 != 0">x</span>
+              <span *ngIf="
+                intoperacion.expo1 != 1 &&
+                intoperacion.expo1 != 0 &&
+                intoperacion.num1 != 0
+              " class="exponente3">
+                {{ intoperacion.expo1.toString().trim() }}
+              </span>
+              <span class="tamanoLetra4" style="margin-left: 10px"
+                *ngIf="intoperacion.operador == 2 || intoperacion.operador == 2">
+                dx
+              </span>
+              <span class="tamanoLetra4" *ngIf="intoperacion.operador == 2">
+                -
+              </span>
+              <span class="tamanosimbolo" *ngIf="intoperacion.operador == 2 || intoperacion.operador == 2">∫
+              </span>
+              <span class="tamanoLetra4" *ngIf="
+                intoperacion.num2 != 1 ||
+                (intoperacion.num2 == 1 && intoperacion.expo1 == 0)
+              ">
+                {{ intoperacion.num2 }}
+              </span>
+              <span class="tamanoLetra4" *ngIf="intoperacion.expo2 != 0 && intoperacion.num2 != 0">x</span>
+              <span *ngIf="
+                intoperacion.expo2 != 1 &&
+                intoperacion.expo2 != 0 &&
+                intoperacion.num2 != 0
+              " class="exponente3">
+                {{ intoperacion.expo2.toString().trim() }}
+              </span>
+              <span class="tamanoLetra4" style="margin-left: 10px"> dx</span>
+            </div>
+            <br />
+
+            <!--PROCEDIMIENTO-->
+            <div *ngIf="intoperacion.expo1 != -1" style="position: relative" class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <div>
+                  <span class="tamanosimbolo3">(</span>
+                  <span class="tamanoLetra">({{ intoperacion.num1.toString().trim() }} /({{
+                    intoperacion.expo1.toString().trim()
+                    }}+1))</span>
+                  <span class="tamanoLetra">x</span>
+                  <span class="exponente2">( {{ intoperacion.expo1.toString().trim() }}+1)</span>
+                  <span class="tamanosimbolo3">)</span>
+                  <span class="tamanosimbolo3">-</span>
+                  <span class="tamanosimbolo3">(</span>
+                  <span class="tamanoLetra">({{ intoperacion.num2.toString().trim() }}/({{
+                    intoperacion.expo2.toString().trim()
+                    }}+1))</span>
+                  <span class="tamanoLetra">x</span>
+                  <span class="exponente2">({{ intoperacion.expo2.toString().trim() }}+1)</span>
+                  <span class="tamanosimbolo3">)</span>
+                </div>
+              </div>
+            </div>
+
+            <!--RESULTADO RESTA-->
+            <div *ngIf="estadoRes" class="d-flex justify-content-center align-items-center" style="font-weight: bold">
+              <i class="tamanoLetra" style="margin-right: 15px">Resultado:</i>
+              <div *ngIf="simpleintegral.integraloperacion.resexpo1 != -1,  else lognatural2"
+                style="position: relative">
+                <div *ngIf="
+                    simpleintegral.integraloperacion.resnum1 != 0;
+                    else cero
+                  " style="position: relative">
+                  <span *ngIf="simpleintegral.integraloperacion.resnum1 != 1" class="tamanoLetra">{{
+                    simpleintegral.integraloperacion.resnum1.toString().trim()}}</span>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != 0" class="tamanoLetra">x</span>
+                  <span *ngIf="
+                      simpleintegral.integraloperacion.resexpo1 != 1 &&
+                      simpleintegral.integraloperacion.resexpo1 != 0
+                    " class="exponente2">{{ simpleintegral.integraloperacion.resexpo1.toString().trim() }}</span>
+
+                  <br />
+                  <div class="divisor" *ngIf="
+                      simpleintegral.integraloperacion.resdivisor1 != 0 &&
+                      simpleintegral.integraloperacion.resdivisor1 != 1
+                    " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                    <span class="divisor">
+                      {{ simpleintegral.integraloperacion.resdivisor1.toString().trim()}}
+                    </span>
+                  </div>
+
+                </div>
+                <ng-template #cero>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo1 != -1" class="tamanoLetra">0</span>
+                </ng-template>
+              </div>
+              <span *ngIf="simpleintegral.integraloperacion.resnum2 < 0" class="tamanoLetra">-</span>
+              <span *ngIf="simpleintegral.integraloperacion.resnum2 >= 0" class="tamanoLetra">+</span>
+              <div *ngIf="simpleintegral.integraloperacion.resexpo2 != -1,  else lognatural3"
+                style="position: relative">
+                <div *ngIf="
+                    simpleintegral.integraloperacion.resnum2 != 0;
+                    else cero2
+                  " style="position: relative" class="d-flex align-items-center">
+                  <div>
+
+                    <span *ngIf="simpleintegral.integraloperacion.resnum2 != 1" class="tamanoLetra">
+                      <span
+                        *ngIf="simpleintegral.integraloperacion.resnum2 >= 0">{{simpleintegral.integraloperacion.resnum2.toString().trim()}}</span>
+                      <span
+                        *ngIf="simpleintegral.integraloperacion.resnum2 < 0">{{(-simpleintegral.integraloperacion.resnum2).toString().trim()}}</span>
+                    </span>
+                    <span *ngIf="simpleintegral.integraloperacion.resexpo2 != 0" class="tamanoLetra">x</span>
+                    <span *ngIf="
+                      simpleintegral.integraloperacion.resexpo2 != 1 &&
+                      simpleintegral.integraloperacion.resexpo2 != 0
+                    " class="exponente2">{{ simpleintegral.integraloperacion.resexpo2.toString().trim() }}</span>
+                    <br />
+                    <div class="divisor" *ngIf="
+                      simpleintegral.integraloperacion.resdivisor2 != 0 &&
+                      simpleintegral.integraloperacion.resdivisor2 != 1
+                    " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                      <span class="divisor">
+                        {{ simpleintegral.integraloperacion.resdivisor2.toString().trim() }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <span class="constanteSUMA">
+                    + C
+                  </span>
+                </div>
+                <ng-template #cero2>
+                  <span *ngIf="simpleintegral.integraloperacion.resexpo2 != -1" class="tamanoLetra">0 + C</span>
+                </ng-template>
+              </div>
+              <ng-template #lognatural2>
+                <div *ngIf="intoperacion.operador == 2" class="position-relative">
+                  <span class="tamanoLetra">{{ simpleintegral.integraloperacion.resnum1 }} ln(|x|)
+                  </span>
+                </div>
+              </ng-template>
+              <ng-template #lognatural3>
+                <div *ngIf="intoperacion.operador == 2" class="position-relative">
+                  <span class="tamanoLetra">{{ simpleintegral.integraloperacion.resnum2 }} ln(|x|)
+                  </span>
+
+                  <span class="constante">+ C</span>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!--*MULTIPLICACION-->
+        <div *ngIf="intoperacion.operador == 3" class="d-flex justify-content-center">
+          <span class="tamanosimbolo2">∫ </span>
+          <span class="tamanoLetra">
+            {{intoperacion.num1 * intoperacion.num2}}
+          </span>
+          <span class="tamanoLetra">x</span>
+          <span class="exponente2">{{
+            intoperacion.expo1 + intoperacion.expo2
+            }}</span>
+        </div>
+        <!--RESULTADO MULTIPLICACION-->
+        <div *ngIf="intoperacion.operador == 3">
+          <div *ngIf="estadoRes" class="d-flex justify-content-center" style="font-weight: bold">
+            <i class="tamanoLetra" style="margin-right: 15px">Resultado:</i>
+            <div *ngIf="
+                simpleintegral.integraloperacion.resexpo1 != -1;
+                else lognatural2
+              " style="position: relative">
+              <div *ngIf="simpleintegral.integraloperacion.resnum2 != 0; else cero" style="position: relative">
+                <span *ngIf="simpleintegral.integraloperacion.resnum2 != 1" class="tamanoLetra">{{
+                  simpleintegral.integraloperacion.resnum2.toString().trim() }}</span>
+                <span *ngIf="simpleintegral.integraloperacion.resexpo2 != 0" class="tamanoLetra">x</span>
+                <span *ngIf="
+                    simpleintegral.integraloperacion.resexpo2 != 1 &&
+                    simpleintegral.integraloperacion.resexpo2 != 0
+                  " class="exponente2">{{ simpleintegral.integraloperacion.resexpo2.toString().trim() }}</span>
+                <p [ngClass]="
+                    simpleintegral.integraloperacion.resdivisor1 != 1 &&
+                    simpleintegral.integraloperacion.resdivisor1 != 0
+                      ? 'constante2'
+                      : 'constante'
+                  ">
+                  + C
+                </p>
+                <br />
+                <div class="divisor" *ngIf="
+                    intoperacion.divisor1 != 0 && intoperacion.divisor1 != 1
+                  " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                  <span class="divisor"> {{ intoperacion.divisor1.toString().trim() }} </span>
+                </div>
+              </div>
+              <ng-template #cero>
+                <span *ngIf="simpleintegral.integraloperacion.resexpo2 != -1" class="tamanoLetra">0</span>
+              </ng-template>
+            </div>
+            <ng-template #lognatural2>
+              <div *ngIf="intoperacion.operador == 3" class="position-relative">
+                <span class="tamanoLetra">{{ simpleintegral.integraloperacion.resnum1 }} ln(|x|)
+                </span>
+
+                <span class="constante">+ C</span>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+
+        <!--DIVISION-->
+        <div *ngIf="intoperacion.operador == 4">
+          <div class="d-flex justify-content-center">
+            <!--Simplificación Integral-->
+            <span class="tamanosimbolo2">∫ </span>
+            <div>
+              <span class="tamanoLetra"> {{ intoperacion.numerador1.toString().trim() }} </span>
+              <span class="tamanoLetra">x</span>
+              <span class="exponente2">{{
+                simpleintegral.integraloperacion.resexpo1
+                }}</span>
+              <br />
+              <div class="divisor" *ngIf="intoperacion.divisor1 != 0 && intoperacion.divisor1 != 1"
+                style="border-top: 1.5px solid rgb(100, 100, 100)">
+                <span class="divisor"> {{ intoperacion.divisor1.toString().trim() }} </span>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <!--PROCEDIMIENTO-->
+          <div *ngIf="intoperacion.expo1 != -1" style="position: relative" class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center align-items-center">
+              <span [ngClass]="
+                  intoperacion.divisor1 != 1 && intoperacion.divisor1 != 0
+                    ? 'tamanosimbolo4'
+                    : 'tamanosimbolo3'
+                ">(</span>
+              <div>
+                <span class="tamanoLetra">{{ intoperacion.numerador1.toString().trim() }}</span>
+                <div class="divisor" *ngIf="
+                    intoperacion.divisor1 != 0 && intoperacion.divisor1 != 1
+                  " style="border-top: 1.5px solid rgb(100, 100, 100)">
+                  <span class="divisor"> {{ intoperacion.divisor1.toString().trim() }} </span>
+                </div>
+              </div>
+              <span [ngClass]="
+                  intoperacion.divisor1 != 1 && intoperacion.divisor1 != 0
+                    ? 'tamanosimbolo4'
+                    : 'tamanosimbolo3'
+                ">)</span>
+              <div>
+                <span class="tamanoLetra">/({{ simpleintegral.integraloperacion.resexpo1.toString().trim() }} +
+                  1)</span>
+                <span class="tamanoLetra">x</span>
+                <span class="exponente2">( {{ simpleintegral.integraloperacion.resexpo1.toString().trim() }} + 1
+                  )</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--RESULTADO DIVISION-->
+      <div *ngIf="intoperacion.operador == 4">
+        <div *ngIf="estadoRes" class="d-flex justify-content-center" style="font-weight: bold">
+          <i class="tamanoLetra" style="margin-right: 15px">Resultado:</i>
+          <div *ngIf="
+              simpleintegral.integraloperacion.resexpo1 != -1;
+              else lognatural3
+            " style="position: relative">
+            <div *ngIf="simpleintegral.integraloperacion.resnum2 != 0; else cero" style="position: relative">
+              <span *ngIf="simpleintegral.integraloperacion.resnum2 != 1" class="tamanoLetra">{{
+                simpleintegral.integraloperacion.resnum2.toString().trim() }}</span>
+              <span *ngIf="simpleintegral.integraloperacion.resexpo2 != 0" class="tamanoLetra">x</span>
+              <span *ngIf="
+                  simpleintegral.integraloperacion.resexpo2 != 1 &&
+                  simpleintegral.integraloperacion.resexpo2 != 0
+                " class="exponente2">{{ simpleintegral.integraloperacion.resexpo2.toString().trim() }}</span>
+              <p [ngClass]="
+                simpleintegral.integraloperacion.resdivisor2 != 1 && simpleintegral.integraloperacion.resdivisor2 != 0
+                    ? 'constante2'
+                    : 'constante'
+                ">
+                + C
+              </p>
+              <br />
+              <div class="divisor"
+                *ngIf="simpleintegral.integraloperacion.resdivisor2 != 0 && simpleintegral.integraloperacion.resdivisor2 != 1"
+                style="border-top: 1.5px solid rgb(100, 100, 100)">
+                <span class="divisor">
+                  {{ simpleintegral.integraloperacion.resdivisor2.toString().trim() }}
+                </span>
+              </div>
+            </div>
+            <ng-template #cero>
+              <span *ngIf="simpleintegral.integraloperacion.resexpo2 != -1" class="tamanoLetra">0</span>
+            </ng-template>
+          </div>
+          <ng-template #lognatural3>
+            <div class="position-relative">
+              <span *ngIf="intoperacion.numerador1 != 1" class="tamanoLetra">{{ intoperacion.numerador1 }}
+              </span>
+              <span class="tamanoLetra">ln(|x|)</span>
+              <br />
+              <div class="divisor" *ngIf="intoperacion.divisor1 != 0 && intoperacion.divisor1 != 1"
+                style="border-top: 1.5px solid rgb(100, 100, 100)">
+                <span class="divisor"> {{ intoperacion.divisor1.toString().trim() }} </span>
+              </div>
+              <span [ngClass]="
+                  intoperacion.divisor1 != 1 && intoperacion.divisor1 != 0
+                    ? 'constante2'
+                    : 'constante'
+                ">+ C</span>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="tipo == 3">
+      <p>Integral 3</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+{
+    "prettier.tabWidth": 4,
+    "prettier.arrowParens": "avoid",
+    "prettier.bracketSpacing": false,
+    "prettier.embeddedLanguageFormatting": "off"
+}

@@ -1,0 +1,27 @@
+
+a.butonActive {
+    color: #002022 !important;
+    background-color: #0098a3;
+}
+
+.menu-desktop a{
+    padding: 17px;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+.menu-desktop {
+    background-color: #045b62 !important;
+    color: rgb(1, 184, 190);
+    font-weight: bold;
+}
+
+.menu-desktop a:hover{
+    background-color: #02828b;
+}
+
+ul.nav {
+     background-color: rgb(241, 243, 245);
+} 
+

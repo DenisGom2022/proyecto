@@ -1,0 +1,520 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-5">
+                <select (change)="reset()" class="col-4" #tipointegral="ngModel" [(ngModel)]="tipo" class="form-select" aria-label="Default select example">
+                    <option value="1">Sin (x) dx</option>
+                    <option value="2">Cos (x) dx</option>
+                    <option value="3">tan (x) dx</option>
+                    <option value="4">Cot (x) dx</option>
+                    <option value="5">Sec (x) dx</option>
+                    <option value="6">Cosec (x) dx</option>
+                </select>  
+            </div> 
+        </div>
+        <br>
+        <br>
+        <!--Funcion Senx dx-->
+
+        <div *ngIf="tipo==1" class="contenedor" >
+            <div class="row">
+                <div class="col-lg-6  d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100);">
+                    <div>
+                        <h2 class="subtitulo">Ingrese operación</h2>
+                        <br>
+                        <div>
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Sen</span>
+                            <span class="tamanosimbolo">(</span>
+                            <input type="number" class="numero" (input)="reset()" [(ngModel)]="inteTrigo.num1">
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6  d-flex justify-content-center">
+                    <div>
+                        <h2 class="subtitulo">Verifique su expresión</h2>
+                        <br>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Sen</span>
+                            <span class="tamanosimbolo2">(</span>
+                            <span class="tamanoLetra">{{inteTrigo.num1}}</span>
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo2">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5" style="width: 100%">
+                <button class="btn btn-outline-success" (click)="calcularSinx()">
+                  Calcular
+                </button>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="estadoRes">
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="tamanoLetra" style="margin-right: 15px">Resultado: </i>
+                    <div *ngIf="inteTrigo.num1!=1 && (inteTrigo.num1!=-1) && inteTrigo.num1!=0" class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1>=0">-</span>
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">+</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Cos' + '(' + inteTrigo.num1 + 'x)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Cos' + '(' + inteTrigo.ResultFinal + 'x)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==1 || inteTrigo.num1==-1"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1>=0">-</span>
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">+</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Cos' + '(' + 'x)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Cos' + '(' + 'x)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==0" class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2">0</span>
+                    </div>
+                    <span class="tamanoLetra3">+ C</span>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <!--Funcion Cosx dx-->
+
+        <div *ngIf="tipo==2" class="contenedor" >
+            <div class="row">
+                <div class="col-lg-6  d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100);">
+                    <div>
+                        <h2 class="subtitulo">Ingrese operación</h2>
+                        <br>
+                        <div>
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Cos</span>
+                            <span class="tamanosimbolo">(</span>
+                            <input type="number" class="numero" (input)="reset()" [(ngModel)]="inteTrigo.num1">
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6  d-flex justify-content-center">
+                    <div>
+                        <h2 class="subtitulo">Verifique su expresión</h2>
+                        <br>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Cos</span>
+                            <span class="tamanosimbolo2">(</span>
+                            <span class="tamanoLetra">{{inteTrigo.num1}}</span>
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo2">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5" style="width: 100%">
+                <button class="btn btn-outline-success" (click)="calcularCosx()">
+                  Calcular
+                </button>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="estadoRes">
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="tamanoLetra" style="margin-right: 15px">Resultado: </i>
+                    <div *ngIf="inteTrigo.num1!=1 && (inteTrigo.num1!=-1) && inteTrigo.num1!=0" class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">+</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Sen' + '(' + inteTrigo.num1 + 'x)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Sen' + '(' + inteTrigo.ResultFinal + 'x)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==1 || (inteTrigo.num1==-1)" class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">+</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Sen' + '(' + 'x)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'Sen' + '(' + 'x)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==0" class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2">x</span>
+                    </div>
+                    <span class="tamanoLetra3">+ C</span>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <!--Funcion Tanx dx-->
+
+        <div *ngIf="tipo==3" class="contenedor" >
+            <div class="row">
+                <div class="col-lg-6  d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100);">
+                    <div>
+                        <h2 class="subtitulo">Ingrese operación</h2>
+                        <br>
+                        <div>
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Tan</span>
+                            <span class="tamanosimbolo">(</span>
+                            <input type="number" class="numero" (input)="reset()" [(ngModel)]="inteTrigo.num1">
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6  d-flex justify-content-center">
+                    <div>
+                        <h2 class="subtitulo">Verifique su expresión</h2>
+                        <br>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Tan</span>
+                            <span class="tamanosimbolo2">(</span>
+                            <span class="tamanoLetra">{{inteTrigo.num1}}</span>
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo2">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5" style="width: 100%">
+                <button class="btn btn-outline-success" (click)="calcularTanx()">
+                  Calcular
+                </button>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="estadoRes">
+                <div *ngIf="inteTrigo.num1!=1 && inteTrigo.num1!=-1 && inteTrigo.num1!=0"  style="position: relative">
+                    <!--Procedimiento-->
+                    <div class="d-flex justify-content-center align-items-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1>=0">-</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Cos (' + inteTrigo.num1 + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Cos (' + inteTrigo.ResultFinal + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+
+                        <span class="tamanoLetra3">+ C</span>
+                        
+                    </div>
+                    <div style="position: relative">
+                        <br>    
+                        <!--Resultado-->
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="tamanoLetra" style="margin-right: 15px">Resultado: </i>
+                            <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">-</span>
+                            <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                                <app-fraccion [numerador]="'ln' + '(|Sec (' + inteTrigo.num1 + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                            </div>
+
+                            <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                                <app-fraccion [numerador]="'ln' + '(|Sec (' + inteTrigo.ResultFinal + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                            </div>
+
+                            <span class="tamanoLetra3">+ C</span>
+                            
+                        </div>
+                    </div>
+                </div>>
+
+                <div *ngIf="inteTrigo.num1==1 || inteTrigo.num1==-1"  style="position: relative">
+                    <!--Procedimiento-->
+                    <div class="d-flex justify-content-center align-items-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1>=0">-</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Cos (' + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Cos (' + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+
+                        <span class="tamanoLetra3">+ C</span>
+                        
+                    </div>
+                    <br>
+                    <!--Resultado-->
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="tamanoLetra" style="margin-right: 15px">Resultado: </i>
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">-</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Sec (' + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Sec (' + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+
+                        <span class="tamanoLetra3">+ C</span>
+                        
+                    </div>
+                </div>
+                <div *ngIf="inteTrigo.num1==0"  class="d-flex justify-content-center align-items-center text-center">
+                    <span class="tamanoLetra3">0 + C</span>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <!--Funcion CoTanx dx-->
+
+        <div *ngIf="tipo==4" class="contenedor" >
+            <div class="row">
+                <div class="col-lg-6  d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100);">
+                    <div>
+                        <h2 class="subtitulo">Ingrese operación</h2>
+                        <br>
+                        <div>
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Cot</span>
+                            <span class="tamanosimbolo">(</span>
+                            <input type="number" class="numero" (input)="reset()" [(ngModel)]="inteTrigo.num1">
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6  d-flex justify-content-center">
+                    <div>
+                        <h2 class="subtitulo">Verifique su expresión</h2>
+                        <br>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Cot</span>
+                            <span class="tamanosimbolo2">(</span>
+                            <span class="tamanoLetra">{{inteTrigo.num1}}</span>
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo2">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5" style="width: 100%">
+                <button class="btn btn-outline-success" (click)="calcularCoTanx()">
+                  Calcular
+                </button>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="estadoRes">
+                <!--Resultado-->
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="tamanoLetra" style="margin-right: 15px">Resultado: </i>
+                    <div *ngIf="inteTrigo.num1!=1 && inteTrigo.num1!=-1 && inteTrigo.num1!=0"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">-</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Sen (' + inteTrigo.num1 + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Sen (' + inteTrigo.ResultFinal + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==1 || inteTrigo.num1==-1"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1<0">-</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Sen (' + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Sen (' + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==0"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra3">Función No Definida</span>
+                    </div>
+                    <span *ngIf="inteTrigo.num1!=0" class="tamanoLetra3">+ C</span>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <!--Funcion Secx dx-->
+
+        <div *ngIf="tipo==5" class="contenedor" >
+            <div class="row">
+                <div class="col-lg-6  d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100);">
+                    <div>
+                        <h2 class="subtitulo">Ingrese operación</h2>
+                        <br>
+                        <div>
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Sec</span>
+                            <span class="tamanosimbolo">(</span>
+                            <input type="number" class="numero" (input)="reset()" [(ngModel)]="inteTrigo.num1">
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6  d-flex justify-content-center">
+                    <div>
+                        <h2 class="subtitulo">Verifique su expresión</h2>
+                        <br>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Sec</span>
+                            <span class="tamanosimbolo2">(</span>
+                            <span class="tamanoLetra">{{inteTrigo.num1}}</span>
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo2">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5" style="width: 100%">
+                <button class="btn btn-outline-success" (click)="calcularSecx()">
+                  Calcular
+                </button>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="estadoRes">
+                <!--Resultado-->
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="tamanoLetra" style="margin-right: 15px">Resultado: </i>
+                    <div *ngIf="inteTrigo.num1!=1 && inteTrigo.num1!=-1 && inteTrigo.num1!=0"  class="d-flex justify-content-center align-items-center text-center">
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Tan (' + inteTrigo.num1 + 'x) + ' + 'Sec (' + inteTrigo.num1 + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Tan (' + inteTrigo.ResultFinal + 'x) + ' + 'Sec (' + inteTrigo.ResultFinal + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==1 || inteTrigo.num1==-1"  class="d-flex justify-content-center align-items-center text-center">
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Tan (' + 'x) + ' + 'Sec (' + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Tan (' + 'x) + ' + 'Sec (' + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==0"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2">x</span>
+                    </div>
+                    <span class="tamanoLetra3">+ C</span>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <!--Funcion CSCx dx-->
+
+        <div *ngIf="tipo==6" class="contenedor" >
+            <div class="row">
+                <div class="col-lg-6  d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100);">
+                    <div>
+                        <h2 class="subtitulo">Ingrese operación</h2>
+                        <br>
+                        <div>
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Csc</span>
+                            <span class="tamanosimbolo">(</span>
+                            <input type="number" class="numero" (input)="reset()" [(ngModel)]="inteTrigo.num1">
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6  d-flex justify-content-center">
+                    <div>
+                        <h2 class="subtitulo">Verifique su expresión</h2>
+                        <br>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="tamanosimbolo">∫</span>
+                            <span class="tamanoLetra">Csc</span>
+                            <span class="tamanosimbolo2">(</span>
+                            <span class="tamanoLetra">{{inteTrigo.num1}}</span>
+                            <span class="tamanoLetra">x</span>
+                            <span class="tamanosimbolo2">)</span>
+                            <span class="tamanoLetra">dx</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5" style="width: 100%">
+                <button class="btn btn-outline-success" (click)="calcularCSCx()">
+                  Calcular
+                </button>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="estadoRes">
+                <!--Resultado-->
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="tamanoLetra" style="margin-right: 15px">Resultado: </i>
+                    <div *ngIf="inteTrigo.num1!=1 && inteTrigo.num1!=-1 && inteTrigo.num1!=0"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1>=0">-</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Csc (' + inteTrigo.num1 + 'x) + ' + 'Cot (' + inteTrigo.num1 + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Csc (' + inteTrigo.ResultFinal + 'x) + ' + 'Cot (' + inteTrigo.ResultFinal + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==1 || inteTrigo.num1==-1"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra2" *ngIf="inteTrigo.num1>=0">-</span>
+                        <div *ngIf="inteTrigo.num1>=0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Csc (' + 'x) + ' + 'Cot (' + 'x)|)'" [denominador]="inteTrigo.num1.toString() "></app-fraccion>
+                        </div>
+
+                        <div *ngIf="inteTrigo.num1<0" class="d-flex justify-content-center align-items-center text-center">
+                            <app-fraccion [numerador]="'ln' + '(|Csc (' + 'x) + ' + 'Cot (' + 'x)|)'" [denominador]="inteTrigo.ResultFinal.toString() "></app-fraccion>
+                        </div>
+                    </div>
+                    <div *ngIf="inteTrigo.num1==0"  class="d-flex justify-content-center align-items-center text-center">
+                        <span class="tamanoLetra3">Función No Definida</span>
+                    </div>
+                    <span *ngIf="inteTrigo.num1!=0" class="tamanoLetra3">+ C</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

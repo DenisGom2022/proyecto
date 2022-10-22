@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: mathematic;
+    src: url("assets/mathematics_boredom/Mathematics Boredom.ttf");
+}
+
+ul.nav .logo {
+    text-align: center;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: mathematic;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+/* body {
+    height: 800px;
+}
+
+
+ul.nav li {
+    padding: 3px;
+}
+
+ul.nav a {
+    padding: 15px;
+}
+
+ul.nav a:hover {
+    background-color: rgb(80, 82, 83);
+    color: white;
+} */

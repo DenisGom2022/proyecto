@@ -1,0 +1,21 @@
+.titulo {
+    width: 90px;
+    font-size: 30px;
+}
+
+.subtitulo {
+    color: #1620af;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.numero {
+    width: 90px;
+    font-size: 30px;
+}
+
+.tamanoLetra {
+    font-size: 30px;
+}
+
+.parentesis {
+    font-size: 60px;
+}

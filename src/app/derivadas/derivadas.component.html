@@ -1,0 +1,71 @@
+<div class="card" (window:resize)="a()">
+    <div class="card-body">
+        <div class="d-flex justify-content-center row">
+            <div class="col-lg-5">
+                <select (change)="reset()" #tipoDerivada="ngModel" [(ngModel)]="tipo" class="form-select" aria-label="Default select example">
+                    <option value=1>Derivada Simple</option>
+                    <option value=3>Derivar expresión</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <!-- Derivada simple -->
+        <div *ngIf="tipo==1" class="contenedor" >
+            <div class="row">
+                <div class="col-lg-6  d-flex justify-content-center" style="border-right: 1.5px solid rgb(100, 100, 100);">
+                    <div class="">
+                        <h2 class="subtitulo">Ingrese operacion</h2>
+                        <br>
+                        <input type="number" class="numero" (input)="reset()" [(ngModel)]="deriSimple.num1">
+                        <span class="tamanoLetra">x</span>
+                        <input type="number" class="exponente" (input)="reset()" [(ngModel)]="deriSimple.expo1">
+                    </div>
+                </div>
+                <!-- foto -->
+                <div class="col-lg-6">
+                    <div class="d-flex flex-wrap justify-content-center contenedor">
+                        <h2 class="col-12 subtitulo" style="text-align: center;" >Verifique su expresión</h2>
+                        <span class="tamanoLetra" *ngIf="deriSimple.num1 != 1 || (deriSimple.num1 == 1 && deriSimple.expo1==0)"> {{deriSimple.num1}} </span>
+                        <span class="tamanoLetra" *ngIf="deriSimple.expo1 != 0 && deriSimple.num1 !=0">x</span>
+                        <span *ngIf="deriSimple.expo1 != 1 && deriSimple.expo1 != 0 && deriSimple.num1!=0" class="exponenteF" class="exponenteF"> {{deriSimple.expo1}} </span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center m-5">
+                <button class="btn btn-outline-success" (click)="calcularDer1()">Calcular</button>
+            </div>
+            <br>
+            <!-- procedimiento -->
+            <div *ngIf="estadoRes" class="d-flex justify-content-center">
+                <span class="tamanoLetra">( {{deriSimple.num1}} * {{deriSimple.expo1}} )</span>
+                <span class="tamanoLetra" >x</span>
+                <span class="exponenteF">( {{deriSimple.expo1}} - 1 )</span>
+            </div>
+            <!-- respuesta -->
+            <div *ngIf="estadoRes" class="d-flex justify-content-center" style="font-weight: bold;">
+                <i class="tamanoLetra" style="margin-right: 15px;">Resultado:</i>
+                <div *ngIf="deriSimple.ResNum1 != 0; else cero2">
+                    <span class="tamanoLetra">{{deriSimple.ResNum1}}</span>
+                    <span *ngIf="deriSimple.ResExp1 != 0" class="tamanoLetra" >x</span>
+                    <span *ngIf="deriSimple.ResExp1 != 1 && deriSimple.ResExp1 != 0" class="exponenteF">{{deriSimple.ResExp1}}</span>
+                </div>
+                <ng-template #cero2> <span class="tamanoLetra">0</span>  </ng-template>
+            </div>
+        </div>
+        <!-- Derivar expresión -->
+        <div *ngIf="tipo==3">
+            <div class="d-flex justify-content-center">
+                <div>
+                    <div>
+                        <input type="text" [(ngModel)]="expresion.exp">
+                        <button class="btn btn-outline-success" (click)="calcularExpresion()" >Calcular</button>
+                    </div>
+                    <div *ngIf="estadoRes" class="tamanoLetra">
+                        {{expresion.response}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

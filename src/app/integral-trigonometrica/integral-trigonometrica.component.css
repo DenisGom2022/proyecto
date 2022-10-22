@@ -1,0 +1,67 @@
+* {
+    font-family: monospace;
+}
+
+.contenedor {
+    position: relative;
+}
+
+.numero {
+    width: 75px;
+    font-size: 30px;
+}
+
+
+.tamanoLetra {
+    font-size: 30px;
+}
+
+.tamanoLetra2 {
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+.tamanoLetra3 {
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+.exponente {
+    position: relative;
+    width: 60px;
+    top: -25px;
+    font-size: 22px;
+}
+.exponenteF {
+    position: relative;
+    top: -10px;
+    font-size: 22px;
+}
+
+.subtitulo {
+    color: #1620af;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.tamanosimbolo {
+    font-size: 50px;
+    position:relative;
+}
+
+.tamanosimbolo2 {
+    font-size: 35px;
+    position:relative;
+}
+
+/* Regla de la cadena*/
+
+.parentesis {
+    font-size: 60px;
+}
+
+.exponente2 {
+    position: relative;
+    width: 60px;
+    top: -45px;
+    font-size: 22px;
+}

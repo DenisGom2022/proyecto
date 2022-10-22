@@ -1,0 +1,13 @@
+.numerador {
+    border-top: 1px solid #000;
+}
+
+.fraccion {
+    font-size: 30px;
+}
+
+.exponente {
+    font-size: 22px;
+    position: relative;
+    top: -12px;
+}

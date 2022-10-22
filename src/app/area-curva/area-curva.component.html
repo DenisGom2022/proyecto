@@ -1,0 +1,65 @@
+
+<!-- Modal -->
+<app-modal *ngIf="errorLim" [title]="modal.title" [description]="modal.description" (cerrarMod)="errorLim = false"></app-modal>
+<!-- Componenete derivadas-->
+<app-integrales-basicas (newItemEvent)="addItem($event)" (newItemEvent2)="addItem2($event)"></app-integrales-basicas>
+<!--Input para límites-->
+<div class="d-flex justify-content-evenly mb-5">
+    <div>
+        <h3>Lim superior</h3>
+        <input type="number" [(ngModel)]="liSup" (input)="estadoRes = false">
+    </div>
+    <div>
+        <h3>Lim Inferior</h3>
+        <input type="number" [(ngModel)]="liInf" (input)="estadoRes = false">
+    </div>
+</div>
+<div class="d-flex justify-content-center m-5 m-auto" style="width: 80%;">
+  <button class="btn btn-outline-success" (click)="calcularArea()">Calcular Area</button>
+</div>
+
+<!--Calculos-->
+<div *ngIf="estadoRes" class="text-center mt-5">
+    <div class="d-flex justify-content-center align-items-center" *ngIf="this.items.tipo == 1">
+      <app-fraccion [numerador]="items.integralsimple.respnum1.toString() + '(' + liSup + ')'" [denominador]="items.integralsimple.respdivisor1.toString()" [exponente]="items.integralsimple.respexpo1.toString()"></app-fraccion>
+      <span class="tamanoLetra m-1"> - </span>
+      <app-fraccion [numerador]="items.integralsimple.respnum1.toString() + '(' + liInf + ')'" [denominador]="items.integralsimple.respdivisor1.toString()" [exponente]="items.integralsimple.respexpo1.toString()"></app-fraccion>
+    </div>
+    <div *ngIf="this.items.tipo == 1.5">
+      <h4><span *ngIf="items.integralsimple.respnum1 != 1">{{items.integralsimple.respnum1}}</span>ln(|{{liSup}}|) - <span *ngIf="items.integralsimple.respnum1 != 1">{{items.integralsimple.respnum1}}</span>ln(|{{liInf}}|)</h4>
+    </div>
+    <div class="d-flex justify-content-center mt-5 align-items-center tamanoLetra" style="width: 100%;" *ngIf="!divergente && items.tipo == 1">
+      Resultado = <app-fraccion [numerador]="resFra.numerador.toString()" [denominador]="resFra.denominador.toString()"></app-fraccion>
+      <span class="m-1">u²</span>
+    </div>
+    <div class="d-flex justify-content-center mt-5 align-items-center tamanoLetra" style="width: 100%;" *ngIf="items.tipo == 1.5">
+      Resultado = {{response}}
+      <span class="m-1">u²</span>
+    </div>
+    <h4 class="d-flex justify-content-center mt-5" style="width: 100%;" *ngIf="divergente">Resultado = Divergente</h4>
+    <div *ngIf="items.tipo == 2" >
+      <div class="d-flex justify-content-center align-items-center tamanoLetra">
+        <span class="parentesis m-2">(</span>
+        <app-fraccion [numerador]="items.integralsimple.respnum1.toString() + '(' + liSup + ')' " [denominador]="items.integralsimple.respdivisor1.toString()" [exponente]="items.integralsimple.respexpo1.toString()"></app-fraccion> 
+        <span class="m-1">{{signo}}</span>
+        <app-fraccion [numerador]="items.integralsimple.respnum2.toString() + '(' + liSup + ')' " [denominador]="items.integralsimple.respdivisor2.toString()" [exponente]="items.integralsimple.respexpo2.toString()"></app-fraccion> 
+        <span class="parentesis m-2">)</span>
+        <span> - </span>
+        <span class="parentesis m-2">(</span>
+        <app-fraccion [numerador]="items.integralsimple.respnum1.toString() + '(' + liInf + ')' " [denominador]="items.integralsimple.respdivisor1.toString()" [exponente]="items.integralsimple.respexpo1.toString()"></app-fraccion> 
+        <span class="m-1">{{signo}}</span>
+        <app-fraccion [numerador]="items.integralsimple.respnum2.toString() + '(' + liInf + ')' " [denominador]="items.integralsimple.respdivisor2.toString()" [exponente]="items.integralsimple.respexpo2.toString()"></app-fraccion> 
+        <span class="parentesis m-2">)</span>
+      </div>
+      <div class="d-flex justify-content-center align-items-center tamanoLetra">
+        <app-fraccion [numerador]="parentesisUno.numerador.toString()" [denominador]="parentesisUno.denominador.toString()"></app-fraccion> 
+        <span class="m-2"> - </span>
+        <app-fraccion [numerador]="parentesisDos.numerador.toString()" [denominador]="parentesisDos.denominador.toString()"></app-fraccion> 
+      </div>
+      <div class="d-flex justify-content-center align-items-center tamanoLetra">
+        <span class="m-2">Resultado = </span>
+        <app-fraccion [numerador]="resFra.numerador.toString()" [denominador]="resFra.denominador.toString()"></app-fraccion> 
+        <span class="m-2">u²</span>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+<div class="d-flex flex-column fraccion">
+    <div><span>{{numerador}}</span><span *ngIf="exponente != '1'" class="exponente">{{exponente.trim()}}</span></div>
+    <div class="numerador" *ngIf="denominador != '1'">{{denominador}}</div>
+</div>
